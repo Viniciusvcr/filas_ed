@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ void inicializa(fila* f){
 }
 
 int vazia(fila* f){
-	return f->primeiro == NULL;
+	return f->primeiro->prox == NULL;
 }
 
 void insere_fila(fila* f, item x){
@@ -43,10 +44,22 @@ int remove_fila(fila* f, item* retorno){
 		aux = f->primeiro->prox;
 		*retorno = aux->item;
 		f->primeiro->prox = aux->prox;
+		if(vazia(f))
+				f->ultimo = f->primeiro;
 		free(aux);
 		return 1;
 	}
 	return 0;
+}
+
+void inverte(fila* f){
+	item x;
+
+	if(!vazia(f)){
+		remove_fila(f, &x);
+		inverte(f);
+		insere_fila(f, x);
+	}
 }
 
 void escreve(fila* f){
@@ -57,4 +70,68 @@ void escreve(fila* f){
 		aux = aux->prox;
 	}
 	cout << endl;
+}
+
+void clear_screen(){
+	system("cls");
+}
+
+void pause_screen(){
+	system("pause");
+	cout << endl;
+}
+
+int main(){
+	fila A;
+	int opt;
+	item insere, retorno;
+
+	inicializa(&A);
+	do{
+		fflush(stdin);
+		clear_screen();
+		cout << "[1] Vazia?" << endl;
+		cout << "[2] Inserir na fila" << endl;
+		cout << "[3] Remove fila" << endl;
+		cout << "[4] Mostra fila" << endl;
+		cout << "[5] Inverte fila" << endl;
+		cin >> opt;
+		switch(opt){
+			case 1:
+				if(vazia(&A))
+					cout << "LISTA VAZIA" << endl;
+				else cout << "LISTA NAO VAZIA" << endl;
+				pause_screen();
+			break;
+
+			case 2:
+				clear_screen();
+				cout << "Digite o elemento que quer inserir: ";
+				cin >> insere.chave;
+				insere_fila(&A, insere);
+				cout << "ELEMENTO INSERIDO COM SUCESSO" << endl;
+				pause_screen();
+			break;
+
+			case 3:
+				if(remove_fila(&A, &retorno))
+					cout << retorno.chave << " EXCLUIDO COM SUCESSO" << endl;
+				else cout << "ERRO NA OPERACAO" << endl;
+				pause_screen();
+			break;
+
+			case 4:
+				cout << "FILA COMPLETA: ";
+				escreve(&A);
+				pause_screen();
+			break;
+
+			case 5:
+				inverte(&A);
+				cout << "FILA INVERTIDA!" << endl << "NOVA FILA: ";
+				escreve(&A);
+				pause_screen();
+			break;
+		}
+	}while(opt != 0);
 }
