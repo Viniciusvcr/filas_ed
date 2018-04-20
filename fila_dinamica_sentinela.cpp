@@ -45,14 +45,14 @@ int remove_fila(fila* f, item* retorno){
 		*retorno = aux->item;
 		f->primeiro->prox = aux->prox;
 		if(vazia(f))
-				f->ultimo = f->primeiro;
+			f->ultimo = f->primeiro;
 		free(aux);
 		return 1;
 	}
 	return 0;
 }
 
-void inverte(fila* f){
+void inverte(fila* f){ //exercício 1
 	item x;
 
 	if(!vazia(f)){

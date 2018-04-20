@@ -55,7 +55,7 @@ void mostra_fila(fila* f){
 	cout << endl;
 }
 
-void inverte(fila* f){
+void inverte(fila* f){ //exercício 1
 	item x;
 
 	if(!vazia(f)){
