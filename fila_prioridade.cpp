@@ -32,7 +32,7 @@ int vazia(fila* f){
 	return f->primeiro->prox == f->primeiro;
 }
 
-void insere(fila* f, item x, int prioridade){
+void insere_fila(fila* f, item x, int prioridade){
 	celula *novo = (celula*)malloc(sizeof(celula));
 
 	novo->prioridade = prioridade;
@@ -84,4 +84,62 @@ void escreve(fila* f){
 		ptr = ptr->prox;
 	}
 	cout << endl;
+}
+
+void clear_screen(){
+	system("cls");
+}
+
+void pause_screen(){
+	system("pause");
+	cout << endl;
+}
+
+int main(){
+	fila A;
+	int opt, prioridade;
+	item insere, retorno;
+
+	inicializa(&A);
+	do{
+		fflush(stdin);
+		clear_screen();
+		cout << "[1] Vazia?" << endl;
+		cout << "[2] Inserir na fila" << endl;
+		cout << "[3] Remove fila" << endl;
+		cout << "[4] Mostra fila" << endl;
+		cin >> opt;
+		switch(opt){
+			case 1:
+				if(vazia(&A))
+					cout << "LISTA VAZIA" << endl;
+				else cout << "LISTA NAO VAZIA" << endl;
+				pause_screen();
+			break;
+
+			case 2:
+				clear_screen();
+				cout << "Digite o elemento que quer inserir: ";
+				cin >> insere.chave;
+				cout << "Qual a prioridade? ";
+				cin >> prioridade;
+				insere_fila(&A, insere, prioridade);
+				cout << "ELEMENTO INSERIDO COM SUCESSO" << endl;
+				pause_screen();
+			break;
+
+			case 3:
+				if(remove_fila_p(&A, &retorno, &prioridade))
+					cout << retorno.chave << " (" << prioridade << ") EXCLUIDO COM SUCESSO" << endl;
+				else cout << "ERRO NA OPERACAO" << endl;
+				pause_screen();
+			break;
+
+			case 4:
+				cout << "FILA COMPLETA: " << endl;
+				escreve(&A);
+				pause_screen();
+			break;
+		}
+	}while(opt != 0);
 }
