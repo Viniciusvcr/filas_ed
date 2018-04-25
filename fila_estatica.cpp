@@ -70,6 +70,15 @@ item* get_first(fila* f){
 	return &(f->dados[f->primeiro]);
 }
 
+int esvazia_fila(fila* f){ //exercício 5
+	item x;
+
+	if(!vazia(f)){
+		remove_fila(f, &x);
+		return esvazia_fila(f);
+	}else return 1;
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -95,6 +104,7 @@ int main(){
 		cout << "[5] Inverte fila" << endl;
 		cout << "[6] Mostra fila" << endl;
 		cout << "[7] Mostra primeiro" << endl;
+		cout << "[8] Esvazia fila" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -130,7 +140,7 @@ int main(){
 
 			case 5:
 				inverte(&A);
-				cout << "Filha invertida!" << endl << "Nova fila: ";
+				cout << "Fila invertida!" << endl << "Nova fila: ";
 				mostra_fila(&A);
 				pause_screen();
 			break;
@@ -143,7 +153,15 @@ int main(){
 
 			case 7:
 				ret = get_first(&A);
-				cout << "PRIMEIRO ELEMENTO: " << ret->chave << endl;
+				if(ret != NULL)
+					cout << "PRIMEIRO ELEMENTO: " << ret->chave << endl;
+				else cout << "FILA VAZIA" << endl;
+				pause_screen();
+			break;
+
+			case 8:
+				if(esvazia_fila(&A))
+					cout << "FILA ESVAZIADA" << endl;
 				pause_screen();
 			break;
 		}

@@ -73,8 +73,19 @@ void escreve(fila* f){
 }
 
 item* get_first(fila* f){ //exercício 2
-	item *ret = &(f->primeiro->prox->item);
-	return ret;
+	if(!vazia(f)){
+		item *ret = &(f->primeiro->prox->item);
+		return ret;
+	}else return NULL;
+}
+
+int esvazia_fila(fila* f){ //exercício 5
+	item x;
+
+	if(!vazia(f)){
+		remove_fila(f, &x);
+		return esvazia_fila(f);
+	}else return 1;
 }
 
 void clear_screen(){
@@ -101,6 +112,7 @@ int main(){
 		cout << "[4] Mostra fila" << endl;
 		cout << "[5] Inverte fila" << endl;
 		cout << "[6] Mostra primeiro" << endl;
+		cout << "[7] Esvazia fila" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -141,7 +153,15 @@ int main(){
 
 			case 6:
 				ret = get_first(&A);
-				cout << "PRIMEIRO ELEMENTO: " << ret->chave << endl;
+				if(ret != NULL)
+					cout << "PRIMEIRO ELEMENTO: " << ret->chave << endl;
+				else cout << "LISTA VAZIA" << endl;
+				pause_screen();
+			break;
+
+			case 7:
+				if(esvazia_fila(&A))
+					cout << "FILA ESVAZIADA" << endl;
 				pause_screen();
 			break;
 		}
