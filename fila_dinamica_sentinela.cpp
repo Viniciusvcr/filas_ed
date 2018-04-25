@@ -72,6 +72,11 @@ void escreve(fila* f){
 	cout << endl;
 }
 
+item* get_first(fila* f){ //exercício 2
+	item *ret = &(f->primeiro->prox->item);
+	return ret;
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -84,7 +89,7 @@ void pause_screen(){
 int main(){
 	fila A;
 	int opt;
-	item insere, retorno;
+	item insere, retorno, *ret;
 
 	inicializa(&A);
 	do{
@@ -95,6 +100,7 @@ int main(){
 		cout << "[3] Remove fila" << endl;
 		cout << "[4] Mostra fila" << endl;
 		cout << "[5] Inverte fila" << endl;
+		cout << "[6] Mostra primeiro" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -130,6 +136,12 @@ int main(){
 				inverte(&A);
 				cout << "FILA INVERTIDA!" << endl << "NOVA FILA: ";
 				escreve(&A);
+				pause_screen();
+			break;
+
+			case 6:
+				ret = get_first(&A);
+				cout << "PRIMEIRO ELEMENTO: " << ret->chave << endl;
 				pause_screen();
 			break;
 		}
