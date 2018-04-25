@@ -88,6 +88,14 @@ int esvazia_fila(fila* f){ //exercício 5
 	}else return 1;
 }
 
+int campos_frente(celula* ptr, int campo, int cont){ //exercício 6
+	if(ptr == NULL)
+		return -1; // Esse retorno indica que o campo buscado não existe na fila
+	else if(ptr->item.chave == campo)
+		return cont;
+	else return campos_frente(ptr->prox, campo, ++cont);
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -99,7 +107,7 @@ void pause_screen(){
 
 int main(){
 	fila A;
-	int opt;
+	int opt, campos;
 	item insere, retorno, *ret;
 
 	inicializa(&A);
@@ -113,6 +121,7 @@ int main(){
 		cout << "[5] Inverte fila" << endl;
 		cout << "[6] Mostra primeiro" << endl;
 		cout << "[7] Esvazia fila" << endl;
+		cout << "[8] Campos a frente" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -162,6 +171,14 @@ int main(){
 			case 7:
 				if(esvazia_fila(&A))
 					cout << "FILA ESVAZIADA" << endl;
+				pause_screen();
+			break;
+
+			case 8: 
+				clear_screen();
+				cout << "Digite o item que quer consultar: ";
+				cin >> campos;
+				cout << "Elementos na frente de " << campos << ": " << campos_frente(A.primeiro->prox, campos, 0) << endl;
 				pause_screen();
 			break;
 		}

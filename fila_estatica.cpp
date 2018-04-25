@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #define TAM 51
 
 using namespace std;
@@ -79,6 +80,14 @@ int esvazia_fila(fila* f){ //exercício 5
 	}else return 1;
 }
 
+int campos_frente(fila* f, int campo, int cont, int index){ //exercício 6
+	if(f->dados[index].chave == campo)
+		return cont;
+	else if(proximo(index) == f->primeiro)
+		return -1; // Esse retorno indica que o campo buscado não existe na fila
+	else return campos_frente(f, campo, ++cont, proximo(index));
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -90,7 +99,7 @@ void pause_screen(){
 
 int main(){
 	fila A;
-	int opt;
+	int opt, campos;
 	item insere, retorno, *ret;
 
 	inicializa(&A);
@@ -105,6 +114,7 @@ int main(){
 		cout << "[6] Mostra fila" << endl;
 		cout << "[7] Mostra primeiro" << endl;
 		cout << "[8] Esvazia fila" << endl;
+		cout << "[9] Campos a frente" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -162,6 +172,14 @@ int main(){
 			case 8:
 				if(esvazia_fila(&A))
 					cout << "FILA ESVAZIADA" << endl;
+				pause_screen();
+			break;
+
+			case 9:
+				clear_screen();
+				cout << "Digite o item que quer consultar: ";
+				cin >> campos;
+				cout << "Elementos na frente de " << campos << ": " << campos_frente(&A, campos, 0, A.primeiro) << endl;
 				pause_screen();
 			break;
 		}
