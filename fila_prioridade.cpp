@@ -86,6 +86,18 @@ void escreve(fila* f){
 	cout << endl;
 }
 
+int qntd_prioridade(fila* f, int prioridade){ //exercício 1
+	celula *ptr = f->primeiro->prox;
+	int cont = 0;
+
+	while(ptr != f->primeiro){
+		if(ptr->prioridade == prioridade)
+			cont++;	
+		ptr = ptr->prox;
+	}
+	return cont;
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -108,6 +120,7 @@ int main(){
 		cout << "[2] Inserir na fila" << endl;
 		cout << "[3] Remove fila" << endl;
 		cout << "[4] Mostra fila" << endl;
+		cout << "[5] Quantidade de certa prioridade" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -138,6 +151,13 @@ int main(){
 			case 4:
 				cout << "FILA COMPLETA: " << endl;
 				escreve(&A);
+				pause_screen();
+			break;
+
+			case 5:
+				cout << "Qual prioridade? ";
+				cin >> prioridade;
+				cout << "Prioridade " << prioridade << ": " << qntd_prioridade(&A, prioridade) << " elementos" << endl;
 				pause_screen();
 			break;
 		}
