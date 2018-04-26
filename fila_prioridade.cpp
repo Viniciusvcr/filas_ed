@@ -98,6 +98,22 @@ int qntd_prioridade(fila* f, int prioridade){ //exercício 1
 	return cont;
 }
 
+int altera_prioridade(fila* f, int chave, int n_prioridade, int* a_prioridade){ //exercício 2
+	celula *ptr;
+
+	if(!vazia(f)){
+		ptr = f->primeiro->prox;
+		while(ptr != f->primeiro){
+			if(ptr->item.chave == chave){
+				*a_prioridade = ptr->prioridade;
+				ptr->prioridade = n_prioridade;
+				return 1;
+			}else ptr = ptr->prox;
+		}
+	}
+	return 0;
+}
+
 void clear_screen(){
 	system("cls");
 }
@@ -109,7 +125,7 @@ void pause_screen(){
 
 int main(){
 	fila A;
-	int opt, prioridade;
+	int opt, prioridade, chave, a_priori;
 	item insere, retorno;
 
 	inicializa(&A);
@@ -121,6 +137,7 @@ int main(){
 		cout << "[3] Remove fila" << endl;
 		cout << "[4] Mostra fila" << endl;
 		cout << "[5] Quantidade de certa prioridade" << endl;
+		cout << "[6] Alterar prioridade" << endl;
 		cin >> opt;
 		switch(opt){
 			case 1:
@@ -158,6 +175,18 @@ int main(){
 				cout << "Qual prioridade? ";
 				cin >> prioridade;
 				cout << "Prioridade " << prioridade << ": " << qntd_prioridade(&A, prioridade) << " elementos" << endl;
+				pause_screen();
+			break;
+
+			case 6:
+				clear_screen();
+				cout << "Digite a chave a ser alterada: ";
+				cin >> chave;
+				cout << "Digite a nova prioridade: ";
+				cin >> prioridade;
+				if(altera_prioridade(&A, chave, prioridade, &a_priori))
+					cout << "Prioridade alterada de " << a_priori << " para " << prioridade << " com sucesso!" << endl;
+				else cout << "ERRO NA OPERACAO" << endl;
 				pause_screen();
 			break;
 		}
